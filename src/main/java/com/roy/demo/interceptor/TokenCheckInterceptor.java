@@ -4,13 +4,20 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.apache.log4j.Logger;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.web.method.HandlerMethod;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
 
 import com.roy.demo.annotation.TokenSecured;
+import com.roy.demo.service.TokenService;
 
 public class TokenCheckInterceptor extends HandlerInterceptorAdapter {
+
+	@Autowired
+	@Qualifier("tokenService")
+	private TokenService tokenService;
 
 	private static final Logger LOGGER = Logger.getLogger(TokenCheckInterceptor.class);
 
@@ -28,7 +35,7 @@ public class TokenCheckInterceptor extends HandlerInterceptorAdapter {
 			// annotation
 			if (securedAnnotation != null) {
 				response.sendError(HttpServletResponse.SC_FORBIDDEN, "API call token not present or invalid.");
-				return false;
+				return tokenService.verifyToken(request, response);
 				// String refererUrl = request.getHeader("referer");
 				// if (request.getRemoteAddr().equals(request.getLocalAddr()) )
 				// {
