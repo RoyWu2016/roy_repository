@@ -10,30 +10,25 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.apache.poi.hssf.usermodel.HSSFCell;
-import org.apache.poi.hssf.usermodel.HSSFCellStyle;
-import org.apache.poi.hssf.usermodel.HSSFDataFormat;
-import org.apache.poi.hssf.usermodel.HSSFFont;
-import org.apache.poi.hssf.usermodel.HSSFRichTextString;
-import org.apache.poi.hssf.usermodel.HSSFRow;
-import org.apache.poi.hssf.usermodel.HSSFSheet;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.apache.poi.hssf.util.CellRangeAddress;
-import org.apache.poi.hssf.util.HSSFColor;
 import org.apache.poi.ss.usermodel.Cell;
-import org.apache.poi.ss.usermodel.CellStyle;
-import org.apache.poi.ss.usermodel.Font;
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;
-import org.apache.poi.ss.usermodel.Workbook;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.JSONObject;
+import com.roy.demo.annotation.TokenSecured;
 import com.roy.demo.model.UserInfo;
 import com.roy.demo.service.UserService;
 
@@ -49,16 +44,19 @@ public class UserController {
 	@Autowired
 	private UserService userService;
 
+	@TokenSecured
 	@RequestMapping("/showInfo/{userId}")
-	public String showUserInfo(ModelMap modelMap, @PathVariable int userId) {
+	public  ResponseEntity<JSONObject> showUserInfo(ModelMap modelMap, @PathVariable int userId) {
 		logger.info("-----------------------showUserInfo-----------------------");
 		UserInfo userInfo = userService.getUserById(userId);
-		modelMap.addAttribute("userInfo", userInfo);
-		return "/user/showInfo";
+		
+//		modelMap.addAttribute("userInfo", userInfo);
+		JSONObject result = JSON.parseObject(JSON.toJSONString(userInfo));
+		return new ResponseEntity<>(result,HttpStatus.OK);
 	}
 
 	@RequestMapping("/showInfos")
-	public @ResponseBody Object showUserInfos() {
+	public  Object showUserInfos() {
 		logger.info("-----------------------showUserInfos-----------------------");
 		List<UserInfo> userInfos = userService.getUsers();
 		return userInfos;
