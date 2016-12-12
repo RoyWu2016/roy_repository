@@ -9,14 +9,13 @@ import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.log4j.Logger;
 import org.apache.poi.hssf.usermodel.HSSFCell;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.apache.poi.hssf.util.CellRangeAddress;
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -28,6 +27,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
+import com.roy.demo.annotation.SystemLog;
 import com.roy.demo.annotation.TokenSecured;
 import com.roy.demo.model.UserInfo;
 import com.roy.demo.service.UserService;
@@ -39,7 +39,7 @@ import io.swagger.annotations.Api;
 @RequestMapping("/user")
 public class UserController {
 
-	protected Logger logger = LoggerFactory.getLogger(UserController.class);
+	private static final Logger logger = Logger.getLogger(UserController.class);
 
 	@Autowired
 	private UserService userService;
@@ -56,6 +56,7 @@ public class UserController {
 	}
 
 	@RequestMapping("/showInfos")
+	@SystemLog(description = "query data")
 	public  Object showUserInfos() {
 		logger.info("-----------------------showUserInfos-----------------------");
 		List<UserInfo> userInfos = userService.getUsers();
