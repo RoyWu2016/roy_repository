@@ -32,9 +32,6 @@ import com.roy.demo.annotation.TokenSecured;
 import com.roy.demo.model.UserInfo;
 import com.roy.demo.service.UserService;
 
-import io.swagger.annotations.Api;
-
-@Api
 @RestController
 @RequestMapping("/user")
 public class UserController {
@@ -43,6 +40,10 @@ public class UserController {
 
 	@Autowired
 	private UserService userService;
+	
+//	@Autowired
+//	@Qualifier("serviceConfig")
+//	private ServiceConfig serviceConfig;
 
 	@TokenSecured
 	@RequestMapping("/showInfo/{userId}")
@@ -59,6 +60,7 @@ public class UserController {
 	public  Object showUserInfos() {
 		logger.info("-----------------------showUserInfos-----------------------");
 		List<UserInfo> userInfos = userService.getUsers();
+//		String userUrl = serviceConfig.getUserServiceUrl();
 		return userInfos;
 	}
 

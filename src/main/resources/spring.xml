@@ -6,10 +6,17 @@
 			http://www.springframework.org/schema/context
 			http://www.springframework.org/schema/context/spring-context-4.1.xsd">
 
+	<context:annotation-config />
+	<context:spring-configured />
 	<!--引入配置属性文件 -->
 	<context:property-placeholder location="classpath:config.properties" />
 
-	<!--自动扫描含有@Service将其注入为bean --> 
-	<context:component-scan base-package="com.roy.demo.service" /> 
+	<!--自动扫描含有@Service将其注入为bean -->
+	<context:component-scan base-package="com.roy.demo.service" />
+
+	<!-- 初始化serviceconfig <bean id="serviceConfig" class="com.roy.demo.config.ServiceConfig">
+		<property name="userServiceUrl" value="${uer.service.url}" />
+		<property name="courtServiceUrl" value="${court.service.url}" />
+	</bean>-->
 
 </beans>
