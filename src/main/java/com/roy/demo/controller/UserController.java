@@ -29,6 +29,7 @@ import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import com.roy.demo.annotation.SystemLog;
 import com.roy.demo.annotation.TokenSecured;
+import com.roy.demo.config.ServiceConfig;
 import com.roy.demo.model.UserInfo;
 import com.roy.demo.service.UserService;
 
@@ -43,6 +44,9 @@ public class UserController {
 
 	@Autowired
 	private UserService userService;
+	
+	@Autowired
+	private ServiceConfig config;
 
 	@TokenSecured
 	@RequestMapping("/showInfo/{userId}")
@@ -60,7 +64,8 @@ public class UserController {
 	public  Object showUserInfos() {
 		logger.info("-----------------------showUserInfos-----------------------");
 		List<UserInfo> userInfos = userService.getUsers();
-		return userInfos;
+//		return userInfos;
+		return config.getLogServiceUrl();
 	}
 
 	@RequestMapping("/exportExcle")

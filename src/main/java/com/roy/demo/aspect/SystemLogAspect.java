@@ -48,7 +48,7 @@ public class SystemLogAspect {
         	logger.info("请求IP:" + ip);    
         	
         	LogInfo log = new LogInfo();
-    		log.setUserName("Roy");
+    		log.setUserName("Tom");
     		log.setOperation(getControllerMethodDescription(joinPoint));
     		int i = logService.addLog(log);
     		
