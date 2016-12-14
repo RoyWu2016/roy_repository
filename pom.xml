@@ -16,10 +16,10 @@
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<spring.version>4.1.4.RELEASE</spring.version>
 		<jackson.version>2.5.0</jackson.version>
+		<commons.beanutils.version>1.9.2</commons.beanutils.version>
 	</properties>
 
 	<dependencies>
-
 		<!-- poi begin -->
 		<dependency>
 			<groupId>org.apache.poi</groupId>

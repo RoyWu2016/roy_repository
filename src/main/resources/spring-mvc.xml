@@ -13,8 +13,8 @@
 	 	http://www.springframework.org/schema/aop/spring-aop-3.0.xsd">
 
 	<!-- 自动扫描controller包下的所有类，如果@Controller注入为bean -->
-	<context:component-scan base-package="com.roy.demo , version" />
 	<context:annotation-config />
+	<context:component-scan base-package="com.roy.demo , version" />
 	<mvc:default-servlet-handler />
 	<mvc:annotation-driven />
 
@@ -34,9 +34,9 @@
 
 	<!-- Include a swagger configuration -->
 	<bean name="/applicationSwaggerConfig" class="com.roy.demo.config.ApplicationSwaggerConfig" />
-	
-	<!--<bean id="serviceConfig" class="com.roy.demo.config.ServiceConfig" 
-	p:logServiceUrl="${user.service.url}" 	p:userServiceUrl="${court.service.url}"/>-->
+
+	<!--<bean id="serviceConfig" class="com.roy.demo.config.ServiceConfig" p:logServiceUrl="${user.service.url}" 
+		p:userServiceUrl="${court.service.url}"/> -->
 
 	<!-- 避免IE执行AJAX时,返回JSON出现下载文件 -->
 	<bean id="mappingJacksonHttpMessageConverter"
