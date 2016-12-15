@@ -19,7 +19,7 @@ public class ApplicationSwaggerConfig {
     	LOGGER.info("################################ into Docket api() #####################################");
         return new Docket(DocumentationType.SWAGGER_2)
                 .select()
-                .apis(RequestHandlerSelectors.any())
+                .apis(RequestHandlerSelectors.basePackage("com.roy.demo.controller"))
                 .paths(PathSelectors.any())
                 .build();
     }

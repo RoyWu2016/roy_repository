@@ -2,6 +2,7 @@ package com.roy.demo.controller;
 
 import java.io.IOException;
 import java.text.MessageFormat;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 
@@ -17,9 +18,12 @@ import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.propertyeditors.CustomDateEditor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.ui.ModelMap;
+import org.springframework.web.bind.ServletRequestDataBinder;
+import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -50,7 +54,7 @@ public class UserController {
 
 	@TokenSecured
 	@RequestMapping("/showInfo/{userId}")
-	public  ResponseEntity<JSONObject> showUserInfo(ModelMap modelMap, @PathVariable int userId) {
+	public  ResponseEntity<JSONObject> showUserInfo(ModelMap modelMap, @PathVariable("userId") int userId) {
 		logger.info("-----------------------showUserInfo-----------------------");
 		UserInfo userInfo = userService.getUserById(userId);
 		
@@ -59,9 +63,9 @@ public class UserController {
 		return new ResponseEntity<>(result,HttpStatus.OK);
 	}
 
-	@RequestMapping("/showInfos")
+	@RequestMapping("/showInfos/date/{dateTime}")
 	@SystemLog(description = "query data")
-	public  Object showUserInfos() {
+	public  Object showUserInfos( @PathVariable("dateTime") Date dateTime) {
 		logger.info("-----------------------showUserInfos-----------------------");
 		List<UserInfo> userInfos = userService.getUsers();
 //		return userInfos;
@@ -73,6 +77,12 @@ public class UserController {
 		logger.info("-----------------------exportExcle-----------------------");
 		HSSFWorkbook wb = new HSSFWorkbook();
 		createFile(wb, response);
+	}
+	
+	@InitBinder
+	public void initBinder(ServletRequestDataBinder binder){
+	    binder.registerCustomEditor(Date.class, new CustomDateEditor(new SimpleDateFormat("yyyy-MM-dd"),
+	            true));
 	}
 
 	private void createFile(HSSFWorkbook wb, HttpServletResponse response) throws IOException {
