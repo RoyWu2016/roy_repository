@@ -2,7 +2,6 @@ package com.roy.demo.controller;
 
 import java.io.IOException;
 import java.text.MessageFormat;
-import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 
@@ -18,14 +17,12 @@ import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.propertyeditors.CustomDateEditor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.ui.ModelMap;
-import org.springframework.web.bind.ServletRequestDataBinder;
-import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -42,33 +39,33 @@ import io.swagger.annotations.Api;
 @Api
 @RestController
 @RequestMapping("/user")
-public class UserController {
+public class UserController extends BaseController {
 
 	private static final Logger logger = Logger.getLogger(UserController.class);
 
 	@Autowired
 	private UserService userService;
-	
+
 	@Autowired
 	private ServiceConfig config;
 
 	@TokenSecured
 	@RequestMapping("/showInfo/{userId}")
-	public  ResponseEntity<JSONObject> showUserInfo(ModelMap modelMap, @PathVariable("userId") int userId) {
+	public ResponseEntity<JSONObject> showUserInfo(ModelMap modelMap, @PathVariable("userId") int userId) {
 		logger.info("-----------------------showUserInfo-----------------------");
 		UserInfo userInfo = userService.getUserById(userId);
-		
-//		modelMap.addAttribute("userInfo", userInfo);
+
+		// modelMap.addAttribute("userInfo", userInfo);
 		JSONObject result = JSON.parseObject(JSON.toJSONString(userInfo));
-		return new ResponseEntity<>(result,HttpStatus.OK);
+		return new ResponseEntity<>(result, HttpStatus.OK);
 	}
 
-	@RequestMapping("/showInfos/date/{dateTime}")
+	@RequestMapping("/showInfos/date/{dateTime}/flag")
 	@SystemLog(description = "query data")
-	public  Object showUserInfos( @PathVariable("dateTime") Date dateTime) {
+	public Object showUserInfos(@PathVariable("dateTime") Date dateTime,@RequestParam(value="flag",required = false) boolean flag) {
 		logger.info("-----------------------showUserInfos-----------------------");
 		List<UserInfo> userInfos = userService.getUsers();
-//		return userInfos;
+		// return userInfos;
 		return config.getLogServiceUrl();
 	}
 
@@ -77,12 +74,6 @@ public class UserController {
 		logger.info("-----------------------exportExcle-----------------------");
 		HSSFWorkbook wb = new HSSFWorkbook();
 		createFile(wb, response);
-	}
-	
-	@InitBinder
-	public void initBinder(ServletRequestDataBinder binder){
-	    binder.registerCustomEditor(Date.class, new CustomDateEditor(new SimpleDateFormat("yyyy-MM-dd"),
-	            true));
 	}
 
 	private void createFile(HSSFWorkbook wb, HttpServletResponse response) throws IOException {
@@ -96,7 +87,7 @@ public class UserController {
 		String str2 = "20110504|45656464535345|231.34|231.34";
 		refundLogs[0] = str1;
 		refundLogs[1] = str2;
-		
+
 		Sheet sheet = wb.createSheet("AI Orders List (2016-09-01 - 2016-10-01");
 		sheet.addMergedRegion(new CellRangeAddress(0, 3, 0, 3));
 		Row row = sheet.createRow(0);
@@ -104,7 +95,7 @@ public class UserController {
 			sheet.createRow(i);
 		}
 
-		for (i = 0; i < 12; i++){
+		for (i = 0; i < 12; i++) {
 			row.createCell(i);
 		}
 
@@ -117,12 +108,12 @@ public class UserController {
 		cell = row.getCell(0);
 		cell.setCellType(HSSFCell.CELL_TYPE_STRING);
 		cell.setCellValue("Date: 2016-October-13");
-		
+
 		row = sheet.getRow(7);
 		cell = row.getCell(0);
 		cell.setCellType(HSSFCell.CELL_TYPE_STRING);
 		cell.setCellValue("Client login: MrPriceFootwear");
-		
+
 		sheet.createRow(11);
 
 		downloadFile(wb, response);
