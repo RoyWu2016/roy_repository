@@ -8,8 +8,9 @@
   
 	<context-param>
 			<param-name>contextConfigLocation</param-name>
-			<param-value>classpath:spring.xml,classpath:spring-mybatis.xml</param-value>
+			<param-value>classpath:spring-mybatis.xml</param-value>
 	</context-param>
+	<!-- classpath:spring.xml -->
 	
 	<filter>
 		<filter-name>encodingFilter</filter-name>
@@ -53,7 +54,7 @@
 	
 	<servlet-mapping>
 		<servlet-name>rest</servlet-name>
-		<url-pattern>*.htmls</url-pattern>
+		<url-pattern>/</url-pattern>
 	</servlet-mapping>
 	
 	<!-- 配置session超时时间，单位分钟 -->

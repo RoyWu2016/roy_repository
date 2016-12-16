@@ -19,7 +19,16 @@
 	</properties>
 
 	<dependencies>
-
+		<dependency>
+			<groupId>org.springmodules</groupId>
+			<artifactId>spring-modules-jakarta-commons</artifactId>
+			<version>0.8</version>
+		</dependency>
+		<dependency>
+			<groupId>commons-configuration</groupId>
+			<artifactId>commons-configuration</artifactId>
+			<version>1.9</version>
+		</dependency>
 		<!-- poi begin -->
 		<dependency>
 			<groupId>org.apache.poi</groupId>
