@@ -13,8 +13,8 @@
 	 	http://www.springframework.org/schema/aop/spring-aop-3.0.xsd">
 
 	<!-- 自动扫描controller包下的所有类，如果@Controller注入为bean -->
-	<context:component-scan base-package="com.roy.demo , version" />
 	<context:annotation-config />
+	<context:component-scan base-package="com.roy.demo , version" />
 	<mvc:default-servlet-handler />
 	<mvc:annotation-driven />
 

@@ -3,13 +3,13 @@ package com.roy.demo.config;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
-@Component
+//@Component
 public class ServiceConfig {
 	
-	@Value("${user.service.url}")
+//	@Value("${user.service.url}")
 	private String userServiceUrl;
 	
-	@Value("${court.service.url}")
+//	@Value("${court.service.url}")
 	private String logServiceUrl;
 
 	public String getUserServiceUrl() {
