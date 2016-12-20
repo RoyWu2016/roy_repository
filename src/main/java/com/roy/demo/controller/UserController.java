@@ -60,8 +60,9 @@ public class UserController extends BaseController {
 		return new ResponseEntity<>(result, HttpStatus.OK);
 	}
 
-	@RequestMapping("/showInfos/date/{dateTime}/flag")
+	@TokenSecured
 	@SystemLog(description = "query data")
+	@RequestMapping("/showInfos/date/{dateTime}/flag")
 	public Object showUserInfos(@PathVariable("dateTime") Date dateTime,@RequestParam(value="flag",required = false) boolean flag) {
 		logger.info("-----------------------showUserInfos-----------------------");
 		List<UserInfo> userInfos = userService.getUsers();

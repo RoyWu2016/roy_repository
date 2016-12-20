@@ -16,7 +16,6 @@ import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
 
 import com.roy.demo.annotation.SystemLog;
-import com.roy.demo.controller.UserController;
 import com.roy.demo.model.LogInfo;
 import com.roy.demo.service.LogService;
 
@@ -24,7 +23,7 @@ import com.roy.demo.service.LogService;
 @Component   
 public class SystemLogAspect {
 	
-	private static final Logger logger = Logger.getLogger(UserController.class);
+	private final Logger logger = Logger.getLogger(this.getClass().getName());
 
 	@Autowired
 	private LogService logService;
