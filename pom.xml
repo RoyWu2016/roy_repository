@@ -19,6 +19,18 @@
 	</properties>
 
 	<dependencies>
+	<!-- ecache config -->
+		<dependency>
+			<groupId>org.mybatis</groupId>
+			<artifactId>mybatis-ehcache</artifactId>
+			<version>1.0.0</version>
+		</dependency>
+		<dependency>
+			<groupId>org.ehcache</groupId>
+			<artifactId>ehcache</artifactId>
+			<version>3.0.0.m3</version>
+		</dependency>
+		<!-- common config -->
 		<dependency>
 			<groupId>org.springmodules</groupId>
 			<artifactId>spring-modules-jakarta-commons</artifactId>
@@ -60,7 +72,7 @@
 			<artifactId>commons-lang3</artifactId>
 			<version>3.4</version>
 		</dependency>
-		
+
 		<dependency>
 			<groupId>commons-lang</groupId>
 			<artifactId>commons-lang</artifactId>
