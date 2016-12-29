@@ -1,14 +1,17 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.roy.demo.dao.UserInfoMapper">
+
 	<resultMap id="BaseResultMap" type="com.roy.demo.model.UserInfo">
 		<id column="id" property="id" jdbcType="INTEGER" />
 		<result column="uname" property="uname" jdbcType="VARCHAR" />
 		<result column="unumber" property="unumber" jdbcType="INTEGER" />
 	</resultMap>
+
 	<sql id="Base_Column_List">
 		id, uname, unumber
 	</sql>
+
 	<select id="selectByPrimaryKey" resultMap="BaseResultMap"
 		parameterType="java.lang.Integer">
 		select
@@ -16,20 +19,35 @@
 		from user_info
 		where id = #{id,jdbcType=INTEGER}
 	</select>
+
+	<!-- 调用存储过程  -->
+	<parameterMap type="map" id="testParameterMap">
+		<parameter property="addend1" jdbcType="INTEGER" mode="IN" />
+		<parameter property="addend2" jdbcType="INTEGER" mode="IN" />
+		<parameter property="sum" jdbcType="INTEGER" mode="OUT" />
+	</parameterMap>
+	<update id="adderWithParameterMap" parameterMap="testParameterMap"
+		statementType="CALLABLE">
+		{call roydb.adderReturnResult(?, ?, ?)}
+	</update>
+
 	<delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
 		delete from
 		user_info
 		where id = #{id,jdbcType=INTEGER}
 	</delete>
+
 	<insert id="insert" parameterType="com.roy.demo.model.UserInfo">
 		insert into user_info (id,
 		uname, unumber
 		)
-		values (#{id,jdbcType=INTEGER},
+		values (
+		#{id,jdbcType=INTEGER},
 		#{uname,jdbcType=VARCHAR},
 		#{unumber,jdbcType=INTEGER}
 		)
 	</insert>
+
 	<insert id="insertSelective" parameterType="com.roy.demo.model.UserInfo">
 		insert into user_info
 		<trim prefix="(" suffix=")" suffixOverrides=",">
@@ -83,9 +101,8 @@
 			<result property="cname" column="cname" jdbcType="VARCHAR" />
 			<result property="caddress" column="caddress" jdbcType="VARCHAR" />
 		</collection>
-
-
 	</resultMap>
+
 	<select id="selectAll" resultMap="UserCourseMap">
 		select u.id, u.uname,
 		u.unumber, c.id course_id, c.cname, c.caddress from user_info u left
@@ -93,4 +110,5 @@
 		left join course_info c on
 		cu.cid = c.id
 	</select>
+
 </mapper>

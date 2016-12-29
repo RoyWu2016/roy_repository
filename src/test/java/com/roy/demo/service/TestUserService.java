@@ -1,6 +1,10 @@
 package com.roy.demo.service;
 
+import static org.junit.Assert.assertEquals;
+
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.apache.log4j.Logger;
 import org.junit.Test;
@@ -36,9 +40,19 @@ public class TestUserService {
 	@Test
 	public void testInsert() {
 		UserInfo userInfo = new UserInfo();
-		userInfo.setUname("xiaoming44");
-		userInfo.setUnumber(88);
+		userInfo.setUname("xiaoyu33");
+		userInfo.setUnumber(533);
 		int result = userService.insert(userInfo);
 		System.out.println(result);
+	}
+
+	@Test
+	public void testAdderWithParameterMap() {
+		Map<String, Object> parms = new HashMap<String, Object>();
+		parms.put("addend1", 3);
+		parms.put("addend2", 4);
+		userService.adderWithParameterMap(parms);
+		LOGGER.info("result: " + parms.get("sum"));
+		assertEquals(7, parms.get("sum"));
 	}
 }
