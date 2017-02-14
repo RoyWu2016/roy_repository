@@ -33,6 +33,10 @@
 	</filter-mapping>
 
 	<listener>
+		<listener-class>com.roy.demo.listener.AutoEmailListener</listener-class>
+	</listener>
+
+	<listener>
 		<listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
 	</listener>
 
@@ -40,6 +44,11 @@
 	<listener>
 		<listener-class>org.springframework.web.util.IntrospectorCleanupListener</listener-class>
 	</listener>
+
+	<servlet-mapping>
+		<servlet-name>default</servlet-name>
+		<url-pattern>*.jsp</url-pattern>
+	</servlet-mapping>
 
 	<servlet>
 		<description>spring mvc servlet</description>
@@ -65,7 +74,7 @@
 	</session-config>
 
 	<welcome-file-list>
-		<welcome-file>index.jsp</welcome-file>
+		<welcome-file>uploadFile.jsp</welcome-file>
 	</welcome-file-list>
 
 </web-app>
