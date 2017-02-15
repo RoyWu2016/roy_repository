@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>  
+<!DOCTYPE beans PUBLIC "-//SPRING//DTD BEAN//EN" "http://www.springframework.org/dtd/spring-beans.dtd">
+<beans>
+	<!-- 要调用的工作类 -->
+	<bean id="quartzJobA" class="com.roy.demo.quartz.QuartzSchedule" />
+	<!-- 定义调用对象和调用对象的方法A -->
+	<bean id="jobtaskA"
+		class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">
+		<!-- 调用的类 -->
+		<property name="targetObject">
+			<ref bean="quartzJobA" />
+		</property>
+		<!-- 调用类中的方法 -->
+		<property name="targetMethod">
+			<value>createFile</value>
+		</property>
+	</bean>
+	<!-- 定义触发时间A -->
+	<bean id="doTimeA"
+		class="org.springframework.scheduling.quartz.CronTriggerFactoryBean">
+		<property name="jobDetail">
+			<ref bean="jobtaskA" />
+		</property>
+		<property name="cronExpression">
+			<value>0/10 * * * * ?</value>
+		</property>
+	</bean>
+
+	<bean id="quartzJobB" class="com.roy.demo.service.impl.UserServiceImpl" />
+	<bean id="jobtaskB"
+		class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">
+		<!-- 调用的类 -->
+		<property name="targetObject">
+			<ref bean="quartzJobB" />
+		</property>
+		<property name="targetMethod">
+			<value>quartzCreateFile</value>
+		</property>
+	</bean>
+	<bean id="doTimeB"
+		class="org.springframework.scheduling.quartz.CronTriggerFactoryBean">
+		<property name="jobDetail">
+			<ref bean="jobtaskB" />
+		</property>
+		<property name="cronExpression">
+			<value>0/10 * * * * ?</value>
+		</property>
+	</bean>
+
+	<bean id="startQuartz"
+		class="org.springframework.scheduling.quartz.SchedulerFactoryBean">
+		<property name="triggers">
+			<list>
+				<ref bean="doTimeA" />
+				<ref bean="doTimeB" />
+			</list>
+		</property>
+	</bean>
+</beans> 

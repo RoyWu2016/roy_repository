@@ -19,7 +19,14 @@
 	</properties>
 
 	<dependencies>
-	<!-- ecache config -->
+		<!-- quartz begin -->
+		<dependency>
+			<groupId>org.quartz-scheduler</groupId>
+			<artifactId>quartz</artifactId>
+			<version>2.2.1</version>
+		</dependency>
+		<!-- quartz end -->
+		<!-- ecache config -->
 		<dependency>
 			<groupId>org.mybatis</groupId>
 			<artifactId>mybatis-ehcache</artifactId>

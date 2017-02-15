@@ -14,5 +14,7 @@ public interface UserService {
 	int insert(UserInfo userInfo);
 	
 	int adderWithParameterMap(Map params);
+	
+	void quartzCreateFile();
 
 }

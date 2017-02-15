@@ -10,9 +10,13 @@
 		<param-name>contextConfigLocation</param-name>
 		<param-value>
 		classpath:spring.xml
-			classpath:spring-mybatis.xml</param-value>
+		classpath:spring-mybatis.xml
+		classpath:spring-quartz.xml
+		</param-value>
 	</context-param>
-	<!-- classpath:spring.xml -->
+	<listener>
+		<listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
+	</listener>
 
 	<filter>
 		<filter-name>encodingFilter</filter-name>
@@ -32,13 +36,9 @@
 		<url-pattern>/*</url-pattern>
 	</filter-mapping>
 
-	<listener>
+	<!-- <listener>
 		<listener-class>com.roy.demo.listener.AutoEmailListener</listener-class>
-	</listener>
-
-	<listener>
-		<listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
-	</listener>
+	</listener> -->
 
 	<!-- 防止spring内存溢出监听器 -->
 	<listener>
