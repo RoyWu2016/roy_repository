@@ -12,7 +12,7 @@
 		</property>
 		<!-- 调用类中的方法 -->
 		<property name="targetMethod">
-			<value>simpleSend</value>
+			<value>attachedSendExcel</value>
 		</property>
 	</bean>
 	<!-- 定义触发时间A -->
