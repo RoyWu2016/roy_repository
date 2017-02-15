@@ -19,6 +19,13 @@
 	</properties>
 
 	<dependencies>
+		<!-- email begin -->
+		<dependency>
+			<groupId>javax.mail</groupId>
+			<artifactId>mail</artifactId>
+			<version>1.4.4</version>
+		</dependency>
+		<!-- email end -->
 		<!-- quartz begin -->
 		<dependency>
 			<groupId>org.quartz-scheduler</groupId>

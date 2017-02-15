@@ -21,7 +21,7 @@
 		init-method="init" destroy-method="close">
 		<property name="url" value="jdbc:mysql://localhost:3306/roydb" />
 		<property name="username" value="root" />
-		<property name="password" value="" />
+		<property name="password" value="123456" />
 
 		<!-- 初始化连接大小 -->
 		<property name="initialSize" value="0" />
@@ -89,6 +89,7 @@
 
 		</tx:attributes>
 	</tx:advice>-->
+	
 	<!-- Spring aop事务管理 
 	<aop:config>
 		<aop:pointcut id="transactionPointcut"

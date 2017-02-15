@@ -2,7 +2,8 @@
 <beans xmlns="http://www.springframework.org/schema/beans"
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:context="http://www.springframework.org/schema/context"
 	xmlns:aop="http://www.springframework.org/schema/aop" xmlns:p="http://www.springframework.org/schema/p"
-	xsi:schemaLocation="http://www.springframework.org/schema/beans
+	xmlns:cache="http://www.springframework.org/schema/cache"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans 
 			http://www.springframework.org/schema/beans/spring-beans-4.1.xsd
 			http://www.springframework.org/schema/context
 			http://www.springframework.org/schema/context/spring-context-4.1.xsd
@@ -11,6 +12,11 @@
 
 	<!--自动扫描含有@Service将其注入为bean -->
 	<context:component-scan base-package="com.roy.demo.service" />
+
+	<!-- 读取 env文件夹下的property -Dactive.profile="dev" -->
+	<context:property-placeholder
+		location="classpath:env/profile-${active.profile}.properties"
+		ignore-unresolvable="true" />
 
 	<!-- for commons-configuration start -->
 	<bean name="propertyPlaceholderConfigurer"
@@ -36,5 +42,45 @@
 	<!-- -->
 	<bean id="serviceConfig" class="com.roy.demo.config.ServiceConfig"
 		p:logServiceUrl="${uer.service.url}" p:userServiceUrl="${court.service.url}" />
+
+	<!-- 缓存配置 -->
+	<!-- 启用缓存注解功能(请将其配置在Spring主配置文件中) <cache:annotation-driven cache-manager="cacheManager" 
+		/> -->
+	<!-- spring default cache <bean id="cacheManager" class="org.springframework.cache.support.SimpleCacheManager"> 
+		<property name="caches"> <set> <bean name="myCache" class="org.springframework.cache.concurrent.ConcurrentMapCacheFactoryBean" 
+		/> </set> </property> </bean> -->
+	<!-- ecache spring config -->
+	<bean id="cacheManagerFactory"
+		class="org.springframework.cache.ehcache.EhCacheManagerFactoryBean">
+		<property name="configLocation" value="classpath:ehcache.xml" />
+	</bean>
+	<bean id="cacheManager" class="org.springframework.cache.ehcache.EhCacheCacheManager">
+		<property name="cacheManager" ref="cacheManagerFactory" />
+	</bean>
+
+	<bean id="mailSender" class="org.springframework.mail.javamail.JavaMailSenderImpl">
+		<property name="protocol" value="smtp" />
+		<!--<property name="host" value="smtp.exmail.qq.com" /> <property name="port" 
+			value="465" /> <property name="username" value="*****" /> <property name="password" 
+			value="*****" /> -->
+		<property name="host" value="smtp.163.com" />
+		<property name="port" value="25" />
+		<property name="username" value="roy_yiyi" />
+		<property name="password" value="179091PeTeR" />
+		<property name="javaMailProperties">
+			<props>
+				<prop key="mail.smtp.auth">true</prop>
+				<prop key="mail.smtp.starttls.enable">false</prop>
+				<!-- 如果是网易邮箱， mail.smtp.starttls.enable 设置为 false 
+				<prop key="mail.smtp.socketFactory.class">javax.net.ssl.SSLSocketFactory</prop>-->
+			</props>
+		</property>
+	</bean>
+
+	<bean id="taskExecutor"
+		class="org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor">
+		<property name="corePoolSize" value="10" />
+		<property name="maxPoolSize" value="30" />
+	</bean>
 
 </beans>

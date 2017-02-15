@@ -1,5 +1,6 @@
 package com.roy.demo.controller;
 
+import java.io.File;
 import java.io.IOException;
 import java.text.MessageFormat;
 import java.util.Date;
@@ -25,6 +26,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
@@ -52,7 +54,6 @@ public class UserController extends BaseController {
 	@TokenSecured
 	@RequestMapping("/showInfo/{userId}")
 	public ResponseEntity<JSONObject> showUserInfo(ModelMap modelMap, @PathVariable("userId") int userId) {
-		logger.info("-----------------------showUserInfo-----------------------");
 		UserInfo userInfo = userService.getUserById(userId);
 
 		// modelMap.addAttribute("userInfo", userInfo);
@@ -60,23 +61,45 @@ public class UserController extends BaseController {
 		return new ResponseEntity<>(result, HttpStatus.OK);
 	}
 
-	@TokenSecured
+//	@TokenSecured
 	@SystemLog(description = "query data")
 	@RequestMapping("/showInfos/date/{dateTime}/flag")
-	public Object showUserInfos(@PathVariable("dateTime") Date dateTime,@RequestParam(value="flag",required = false) boolean flag) {
-		logger.info("-----------------------showUserInfos-----------------------");
+	public Object showUserInfos(@PathVariable("dateTime") Date dateTime,
+			@RequestParam(value = "flag", required = false) boolean flag) {
 		List<UserInfo> userInfos = userService.getUsers();
+		logger.info(JSON.toJSONString(userInfos));
 		// return userInfos;
-		return config.getLogServiceUrl();
+		return config.getApiServiceUrl() + "+" + config.getLogServiceUrl();
 	}
 
 	@RequestMapping("/exportExcle")
 	public @ResponseBody void exportExcle(HttpServletRequest request, HttpServletResponse response) throws IOException {
-		logger.info("-----------------------exportExcle-----------------------");
 		HSSFWorkbook wb = new HSSFWorkbook();
 		createFile(wb, response);
 	}
 
+	@RequestMapping("/uploadFiles")
+	public String uploadFiles(@RequestParam(value = "file", required = false) MultipartFile file, ModelMap model,
+			HttpServletRequest request, HttpServletResponse response) throws IOException {
+		logger.info("invoke: user/uploadFiles");
+		String path = request.getSession().getServletContext().getRealPath("upload");  
+		logger.info("File Path: " + path);
+		String fileName = file.getOriginalFilename();
+        File targetFile = new File(path, fileName);  
+        if(!targetFile.exists()){  
+            targetFile.mkdirs();  
+        } 
+        //保存  
+        try {  
+            file.transferTo(targetFile);  
+        } catch (Exception e) {  
+            e.printStackTrace();  
+        }  
+        model.addAttribute("fileUrl", request.getContextPath()+"/upload/"+fileName);  
+  
+        return "result"; 
+	}
+	
 	private void createFile(HSSFWorkbook wb, HttpServletResponse response) throws IOException {
 		// TODO Auto-generated method stub
 		int i = 0;

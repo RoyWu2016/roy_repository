@@ -1,7 +1,6 @@
 package com.roy.demo.config;
 
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.stereotype.Component;
 
 //@Component
 public class ServiceConfig {
@@ -11,6 +10,17 @@ public class ServiceConfig {
 	
 //	@Value("${court.service.url}")
 	private String logServiceUrl;
+	
+	@Value("${public.api.url}")
+	private String apiServiceUrl;
+
+	public String getApiServiceUrl() {
+		return apiServiceUrl;
+	}
+
+	public void setApiServiceUrl(String apiServiceUrl) {
+		this.apiServiceUrl = apiServiceUrl;
+	}
 
 	public String getUserServiceUrl() {
 		return userServiceUrl;

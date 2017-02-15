@@ -34,9 +34,6 @@
 
 	<!-- Include a swagger configuration -->
 	<bean name="/applicationSwaggerConfig" class="com.roy.demo.config.ApplicationSwaggerConfig" />
-	
-	<!--<bean id="serviceConfig" class="com.roy.demo.config.ServiceConfig" 
-	p:logServiceUrl="${user.service.url}" 	p:userServiceUrl="${court.service.url}"/>-->
 
 	<!-- 避免IE执行AJAX时,返回JSON出现下载文件 -->
 	<bean id="mappingJacksonHttpMessageConverter"
@@ -81,7 +78,7 @@
 
 		<property name="viewResolvers">
 			<list>
-				<bean class="org.springframework.web.servlet.view.UrlBasedViewResolver">
+				<bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
 					<property name="viewClass"
 						value="org.springframework.web.servlet.view.JstlView" />
 					<property name="prefix" value="/WEB-INF/views" />
@@ -89,14 +86,14 @@
 				</bean>
 			</list>
 		</property>
-		<property name="defaultViews">
+		<!-- <property name="defaultViews">
 			<list>
 				<bean
 					class="org.springframework.web.servlet.view.json.MappingJackson2JsonView">
 					<property name="prefixJson" value="true" />
 				</bean>
 			</list>
-		</property>
+		</property> -->
 	</bean>
 	<!-- 对模型视图名称的解析，即在模型视图名称添加前后缀 <bean class="org.springframework.web.servlet.view.InternalResourceViewResolver"> 
 		<property name="viewClass" value="org.springframework.web.servlet.view.JstlView" 

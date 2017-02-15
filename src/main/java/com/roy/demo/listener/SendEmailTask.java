@@ -1,20 +1,21 @@
 package com.roy.demo.listener;
 
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStream;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.TimerTask;
+
 import javax.servlet.ServletContext;
+
 import org.apache.log4j.Logger;
 
 public class SendEmailTask extends TimerTask {
 
 	private static final Logger logger = Logger.getLogger(SendEmailTask.class);
-
+	
 	private ServletContext context = null;
 
 	public SendEmailTask(ServletContext context) {
@@ -31,7 +32,7 @@ public class SendEmailTask extends TimerTask {
 		File file = new File("e:" + File.separator + fileName);
 		try {
 			OutputStream out = new FileOutputStream(file);
-			String str = "Hello World";
+			String str = "Hello world";
 			byte[] b = str.getBytes();
 			out.write(b);// 因为是字节流，所以要转化成字节数组进行输出
 			out.close();

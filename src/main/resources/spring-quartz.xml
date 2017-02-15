@@ -2,7 +2,7 @@
 <!DOCTYPE beans PUBLIC "-//SPRING//DTD BEAN//EN" "http://www.springframework.org/dtd/spring-beans.dtd">
 <beans>
 	<!-- 要调用的工作类 -->
-	<bean id="quartzJobA" class="com.roy.demo.quartz.QuartzSchedule" />
+	<bean id="quartzJobA" class="com.roy.demo.email.SpringMailSender" />
 	<!-- 定义调用对象和调用对象的方法A -->
 	<bean id="jobtaskA"
 		class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">
@@ -12,7 +12,7 @@
 		</property>
 		<!-- 调用类中的方法 -->
 		<property name="targetMethod">
-			<value>createFile</value>
+			<value>simpleSend</value>
 		</property>
 	</bean>
 	<!-- 定义触发时间A -->
@@ -22,6 +22,7 @@
 			<ref bean="jobtaskA" />
 		</property>
 		<property name="cronExpression">
+		<!-- every 10 sec -->
 			<value>0/10 * * * * ?</value>
 		</property>
 	</bean>
@@ -43,7 +44,8 @@
 			<ref bean="jobtaskB" />
 		</property>
 		<property name="cronExpression">
-			<value>0/10 * * * * ?</value>
+		<!-- every 5 minutes -->
+			<value>0 5 0 * * ?</value>
 		</property>
 	</bean>
 

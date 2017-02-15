@@ -73,6 +73,7 @@
 			</if>
 		</trim>
 	</insert>
+	
 	<update id="updateByPrimaryKeySelective" parameterType="com.roy.demo.model.UserInfo">
 		update user_info
 		<set>
@@ -85,6 +86,7 @@
 		</set>
 		where id = #{id,jdbcType=INTEGER}
 	</update>
+	
 	<update id="updateByPrimaryKey" parameterType="com.roy.demo.model.UserInfo">
 		update user_info
 		set uname = #{uname,jdbcType=VARCHAR},
