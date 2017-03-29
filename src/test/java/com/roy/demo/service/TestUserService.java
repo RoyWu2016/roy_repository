@@ -27,8 +27,8 @@ public class TestUserService {
 
 	@Test
 	public void testQueryById1() {
-		UserInfo userInfo = userService.getUserById(1);
-		LOGGER.info(JSON.toJSON(userInfo));
+		String userInfo = userService.getUserById("1");
+		LOGGER.info(userInfo);
 	}
 
 	@Test
