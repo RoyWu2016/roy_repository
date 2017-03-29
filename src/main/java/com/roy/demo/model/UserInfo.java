@@ -1,9 +1,15 @@
 package com.roy.demo.model;
 
+import java.io.Serializable;
 import java.util.List;
 
-public class UserInfo {
-	
+public class UserInfo implements Serializable {
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 4374868769075609908L;
+
 	private Integer id;
 
 	private String uname;

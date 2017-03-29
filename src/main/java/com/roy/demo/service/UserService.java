@@ -7,7 +7,7 @@ import com.roy.demo.model.UserInfo;
 
 public interface UserService {
 	
-	UserInfo getUserById(int id);
+	String getUserById(String id);
 	
 	List<UserInfo> getUsers();
 	

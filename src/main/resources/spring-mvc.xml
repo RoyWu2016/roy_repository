@@ -29,10 +29,8 @@
 		location="classpath:/META-INF/resources/webjars/" />
 
 	<mvc:interceptors>
-		<!-- <mvc:interceptor>
-			<mvc:mapping path="/test/number.do" />
-			<bean class="com.host.app.web.interceptor.LoginInterceptor" />
-		</mvc:interceptor> -->
+		<!-- <mvc:interceptor> <mvc:mapping path="/test/number.do" /> <bean class="com.host.app.web.interceptor.LoginInterceptor" 
+			/> </mvc:interceptor> -->
 		<bean class="com.roy.demo.interceptor.TokenCheckInterceptor" />
 	</mvc:interceptors>
 

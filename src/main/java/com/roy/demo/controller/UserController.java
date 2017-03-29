@@ -51,14 +51,13 @@ public class UserController extends BaseController {
 	@Autowired
 	private ServiceConfig config;
 
-	@TokenSecured
-	@RequestMapping("/showInfo/{userId}")
-	public ResponseEntity<JSONObject> showUserInfo(ModelMap modelMap, @PathVariable("userId") int userId) {
-		UserInfo userInfo = userService.getUserById(userId);
+//	@TokenSecured
+	@RequestMapping("/showInfo")
+	public ResponseEntity<String> showUserInfo(@RequestParam("userId") String userId) {
+		String userInfo = userService.getUserById(userId);
 
 		// modelMap.addAttribute("userInfo", userInfo);
-		JSONObject result = JSON.parseObject(JSON.toJSONString(userInfo));
-		return new ResponseEntity<JSONObject>(result, HttpStatus.OK);
+		return new ResponseEntity<String>(userInfo, HttpStatus.OK);
 	}
 
 //	@TokenSecured

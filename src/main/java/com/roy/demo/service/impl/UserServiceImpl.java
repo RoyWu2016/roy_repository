@@ -17,23 +17,24 @@ import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.transaction.interceptor.TransactionAspectSupport;
 
+import com.alibaba.fastjson.JSON;
 import com.roy.demo.dao.UserInfoMapper;
 import com.roy.demo.model.UserInfo;
 import com.roy.demo.service.UserService;
 
 @Service("userService")
 public class UserServiceImpl implements UserService {
-	
+
 	private static final Logger logger = Logger.getLogger(UserServiceImpl.class);
 
 	@Autowired
 	private UserInfoMapper userInfoMapper;
 
-	@Cacheable(value="myCache", key="#id")  
-	public UserInfo getUserById(int id) {
+	@Cacheable("getUserById")
+	public String getUserById(String id) {
 		// TODO Auto-generated method stub
-		UserInfo user = userInfoMapper.selectByPrimaryKey(id);
-		return user;
+		UserInfo user = userInfoMapper.selectByPrimaryKey(Integer.parseInt(id));
+		return JSON.toJSONString(user);
 	}
 
 	public List<UserInfo> getUsers() {
@@ -41,7 +42,7 @@ public class UserServiceImpl implements UserService {
 		return userInfoMapper.selectAll();
 	}
 
-	@Transactional(propagation = Propagation.REQUIRED)//, rollbackFor = Exception.class
+	@Transactional(propagation = Propagation.REQUIRED, rollbackFor = Exception.class)
 	public int insert(UserInfo userInfo) {
 		// TODO Auto-generated method stub
 		int result = userInfoMapper.insert(userInfo);
@@ -60,10 +61,10 @@ public class UserServiceImpl implements UserService {
 
 	public int adderWithParameterMap(Map params) {
 		// TODO Auto-generated method stub
-        int result = userInfoMapper.adderWithParameterMap(params);
+		int result = userInfoMapper.adderWithParameterMap(params);
 		return result;
 	}
-	
+
 	public void quartzCreateFile() {
 		logger.info("Start to select from db");
 		UserInfo user = userInfoMapper.selectByPrimaryKey(1);

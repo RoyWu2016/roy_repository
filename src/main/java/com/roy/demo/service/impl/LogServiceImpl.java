@@ -9,7 +9,7 @@ import com.roy.demo.service.LogService;
 
 @Service("logService")
 public class LogServiceImpl implements LogService {
-	
+
 	@Autowired
 	private LogInfoMapper logInfoMapper;
 
