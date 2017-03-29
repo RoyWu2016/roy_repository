@@ -58,14 +58,12 @@ public class UserServiceImpl implements UserService {
 		return result;
 	}
 
-	@Override
 	public int adderWithParameterMap(Map params) {
 		// TODO Auto-generated method stub
         int result = userInfoMapper.adderWithParameterMap(params);
 		return result;
 	}
 	
-	@Override
 	public void quartzCreateFile() {
 		logger.info("Start to select from db");
 		UserInfo user = userInfoMapper.selectByPrimaryKey(1);

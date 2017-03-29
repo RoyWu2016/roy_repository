@@ -58,7 +58,7 @@ public class UserController extends BaseController {
 
 		// modelMap.addAttribute("userInfo", userInfo);
 		JSONObject result = JSON.parseObject(JSON.toJSONString(userInfo));
-		return new ResponseEntity<>(result, HttpStatus.OK);
+		return new ResponseEntity<JSONObject>(result, HttpStatus.OK);
 	}
 
 //	@TokenSecured

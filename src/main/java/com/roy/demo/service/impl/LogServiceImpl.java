@@ -13,7 +13,6 @@ public class LogServiceImpl implements LogService {
 	@Autowired
 	private LogInfoMapper logInfoMapper;
 
-	@Override
 	public int addLog(LogInfo log) {
 		// TODO Auto-generated method stub
 		return logInfoMapper.addLog(log);
