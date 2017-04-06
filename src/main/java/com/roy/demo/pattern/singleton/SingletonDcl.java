@@ -3,7 +3,7 @@ package com.roy.demo.pattern.singleton;
  * 
  * 这种方法貌似很完美的解决了上述效率的问题，它或许在并发量不多，
  * 安全性不太高的情况能完美运行，但是，这种方法也有不幸的地方。问题就是出现在这句
- * instance = new Singleton();*/
+ * instance = new Singleton(); jdk1.5 以上*/
 //3.懒汉式变种,双重检验锁 (Double Check Locking) (DCL)
 public class SingletonDcl {
 
