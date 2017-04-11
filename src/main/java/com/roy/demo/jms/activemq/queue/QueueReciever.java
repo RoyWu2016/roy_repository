@@ -1,10 +1,14 @@
 package com.roy.demo.jms.activemq.queue;
 
+import javax.jms.BytesMessage;
 import javax.jms.Connection;
 import javax.jms.ConnectionFactory;
 import javax.jms.Destination;
+import javax.jms.MapMessage;
 import javax.jms.MessageConsumer;
+import javax.jms.ObjectMessage;
 import javax.jms.Session;
+import javax.jms.StreamMessage;
 import javax.jms.TextMessage;
 import org.apache.activemq.ActiveMQConnection;
 import org.apache.activemq.ActiveMQConnectionFactory;
@@ -36,6 +40,10 @@ public class QueueReciever {
 			consumer = session.createConsumer(destination);
 			while (true) {
 				// 设置接收者接收消息的时间，为了便于测试，这里谁定为100s
+				StreamMessage stream = (StreamMessage) consumer.receive();
+				MapMessage map = (MapMessage) consumer.receive();
+				ObjectMessage obj = (ObjectMessage) consumer.receive();
+				BytesMessage bytes = (BytesMessage) consumer.receive();
 				TextMessage message = (TextMessage) consumer.receive(100000);
 				if (null != message) {
 					System.out.println("收到消息" + message.getText());
