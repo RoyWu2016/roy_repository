@@ -19,6 +19,12 @@
 	</properties>
 
 	<dependencies>
+		<!-- Add by WXB -->
+		<dependency>
+			<groupId>org.apache.activemq</groupId>
+			<artifactId>activemq-client</artifactId>
+			<version>5.10.0</version>
+		</dependency>
 		<!-- email begin -->
 		<dependency>
 			<groupId>javax.mail</groupId>
