@@ -36,10 +36,8 @@
 		<url-pattern>/*</url-pattern>
 	</filter-mapping>
 
-	<!-- register a new listener
-	<listener>
-		<listener-class>com.roy.demo.listener.AutoEmailListener</listener-class>
-	</listener> -->
+	<!-- register a new listener <listener> <listener-class>com.roy.demo.listener.AutoEmailListener</listener-class> 
+		</listener> -->
 
 	<!-- 防止spring内存溢出监听器 -->
 	<listener>
@@ -67,6 +65,19 @@
 	<servlet-mapping>
 		<servlet-name>rest</servlet-name>
 		<url-pattern>/</url-pattern>
+	</servlet-mapping>
+
+	<servlet>
+		<servlet-name>hello</servlet-name>
+		<servlet-class>com.caucho.hessian.server.HessianServlet</servlet-class>
+		<init-param>
+			<param-name>service-class</param-name>
+			<param-value>com.xiao.demo.BasicService</param-value>
+		</init-param>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>hello</servlet-name>
+		<url-pattern>/hello</url-pattern>
 	</servlet-mapping>
 
 	<!-- 配置session超时时间，单位分钟 -->
