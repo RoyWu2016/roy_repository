@@ -1,5 +1,6 @@
 package com.roy.demo.thread;
 
+/**出处： http://www.cnblogs.com/skywang12345/p/java_threads_category.html*/
 public class NumberPrinter {
 
 	// n为即将打印的数字
