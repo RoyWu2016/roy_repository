@@ -1,7 +1,14 @@
 package com.roy.demo.model;
 
-public class LogInfo {
+import java.io.Serializable;
+
+public class LogInfo implements Serializable{
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 7667226775062538433L;
+
 	private String userName;
 	
 	private String operation;
